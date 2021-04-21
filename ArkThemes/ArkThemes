@@ -79,14 +79,14 @@ function Migrate2AnberThemes() {
 
   if unzip -qt ${temp_ram_folder}app_update_temp/update.zip | grep 'No errors detected'; then
     dialog --clear
-    dialog --infobox "Installation in progress..." 10 50 >/dev/tty1
+    dialog --infobox "Migration in progress..." 10 50 >/dev/tty1
 
     #Unzipping archive
     unzip -qo ${temp_ram_folder}app_update_temp/update.zip -d ${temp_ram_folder}app_update_temp/ #unzip directly in RAM
     package_folder="AnberThemes-2.0.1"
 
     dialog --clear
-    dialog --infobox "Installation in progress...\nMigrating ArkThemes data..." 10 50 >/dev/tty1
+    dialog --infobox "Migration in progress...\nMigrating ArkThemes data..." 10 50 >/dev/tty1
     #Backing up and migrating ArkThemes data
     cp ${ark_location}ArkThemes/*.log ${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/ 2>/dev/null
     cp -f ${ark_location}ArkThemes/*.dialogrc ${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/ 2>/dev/null
@@ -103,13 +103,13 @@ function Migrate2AnberThemes() {
     fi
 
     dialog --clear
-    dialog --infobox "Installation in progress...\nMigrating ArkThemes data...\nCopying data in ${ark_location}..." 10 50 >/dev/tty1
+    dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\nInstalling AnberThemes in ${ark_location}..." 10 50 >/dev/tty1
     #Installing AnberThemes
     cp -rf ${temp_ram_folder}app_update_temp/${package_folder}/* $ark_location
     chmod 777 ${ark_location}*.sh #make sure newly downloaded script have right permission
 
     dialog --clear
-    dialog --infobox "Installation in progress...\nMigrating ArkThemes data...\nCopying data in ${ark_location}...\nRemoving ArkThemes..." 10 50 >/dev/tty1
+    dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\ nInstalling AnberThemes in ${ark_location}...\nUninstalling ArkThemes..." 10 50 >/dev/tty1
     #Deleting temporary files...
     rm -rf ${temp_ram_folder}app_update_temp #remove the temp folder from RAM
     #Deleting ArkThemes...
