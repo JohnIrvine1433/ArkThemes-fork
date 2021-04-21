@@ -69,7 +69,7 @@ arkthemes_outdated=""
 #######################
 
 function Migrate2AnberThemes() {
-  local UPDATE_URL="https://github.com/JohnIrvine1433/AnberThemes/archive/refs/tags/2.0.0.zip"
+  local UPDATE_URL="https://github.com/JohnIrvine1433/AnberThemes/archive/refs/tags/2.0.1.zip"
   local package_folder
 
   dialog --clear
@@ -83,7 +83,7 @@ function Migrate2AnberThemes() {
 
     #Unzipping archive
     unzip -qo ${temp_ram_folder}app_update_temp/update.zip -d ${temp_ram_folder}app_update_temp/ #unzip directly in RAM
-    package_folder="AnberThemes-2.0.0"
+    package_folder="AnberThemes-2.0.1"
 
     dialog --clear
     dialog --infobox "Installation in progress...\nMigrating ArkThemes data..." 10 50 >/dev/tty1
@@ -91,7 +91,7 @@ function Migrate2AnberThemes() {
     cp ${ark_location}ArkThemes/*.log ${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/ 2>/dev/null
     cp -f ${ark_location}ArkThemes/*.dialogrc ${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/ 2>/dev/null
     if [ -e "arkthemes.cfg" ]; then
-      echo "app_conf_version=\"2.0.0\"" >${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
+      echo "app_conf_version=\"2.0.1\"" >${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
       echo "themes_location=\"${themes_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
       echo "temp_ram_folder=\"${temp_ram_folder}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
       echo "app_location=\"${ark_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
