@@ -29,7 +29,7 @@ clear
 #
 github_ark_owner="JohnIrvine1433" #Used for ArkThemes update function
 github_ark_repo="ArkThemes"       #Used for ArkThemes update function
-current_ark_version="1.3.0"       #1.3.0 lastest version of ArkThemes following the release of AnberThemes
+current_ark_version="1.3.0"       #1.3.0 lastest version of ArkThemes following the release of ThemeMaster
 
 themes_location="/roms/themes/" #ES themes location path with trailing slash
 temp_ram_folder="/dev/shm/"     #ram folder with trailing slash
@@ -68,12 +68,12 @@ arkthemes_outdated=""
 # ARKTHEMES FUNCTIONS #
 #######################
 
-function Migrate2AnberThemes() {
-  local UPDATE_URL="https://github.com/JohnIrvine1433/AnberThemes/archive/refs/tags/2.0.1.zip"
+function Migrate2ThemeMaster() {
+  local UPDATE_URL="https://github.com/JohnIrvine1433/ThemeMaster/archive/refs/tags/2.1.0.zip"
   local package_folder
 
   dialog --clear
-  dialog --infobox "Downloading AnberThemes..." 5 50 >/dev/tty1
+  dialog --infobox "Downloading ThemeMaster..." 5 50 >/dev/tty1
   mkdir -p ${temp_ram_folder}app_update_temp #create a temp folder in RAM
   wget -q "$UPDATE_URL" -O ${temp_ram_folder}app_update_temp/update.zip
 
@@ -83,40 +83,40 @@ function Migrate2AnberThemes() {
 
     #Unzipping archive
     unzip -qo ${temp_ram_folder}app_update_temp/update.zip -d ${temp_ram_folder}app_update_temp/ #unzip directly in RAM
-    package_folder="AnberThemes-2.0.1"
+    package_folder="ThemeMaster-2.1.0"
 
     dialog --clear
     dialog --infobox "Migration in progress...\nMigrating ArkThemes data..." 10 50 >/dev/tty1
     #Backing up and migrating ArkThemes data
-    cp ${ark_location}ArkThemes/*.log ${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/ 2>/dev/null
-    cp -f ${ark_location}ArkThemes/*.dialogrc ${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/ 2>/dev/null
+    cp ${ark_location}ArkThemes/*.log ${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ 2>/dev/null
+    cp -f ${ark_location}ArkThemes/*.dialogrc ${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ 2>/dev/null
     if [ -e "arkthemes.cfg" ]; then
-      echo "app_conf_version=\"2.0.1\"" >${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "themes_location=\"${themes_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "temp_ram_folder=\"${temp_ram_folder}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "app_location=\"${ark_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "app_autocheckupdate=\"${arkthemes_autocheckupdate}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "themes_autocheckupdate=\"${themes_autocheckupdate}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "github_user=\"${github_user}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "collections=(${collections[@]})" >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
-      echo "app_colorscheme=\"${arkthemes_colorscheme}\""  >>${temp_ram_folder}app_update_temp/${package_folder}/AnberThemes/anberthemes.cfg
+      echo "app_conf_version=\"2.1.0\"" >${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "themes_location=\"${themes_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "temp_ram_folder=\"${temp_ram_folder}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "app_location=\"${ark_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "app_autocheckupdate=\"${arkthemes_autocheckupdate}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "themes_autocheckupdate=\"${themes_autocheckupdate}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "github_user=\"${github_user}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "collections=(${collections[@]})" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "app_colorscheme=\"${arkthemes_colorscheme}\""  >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
     fi
 
     dialog --clear
-    dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\nInstalling AnberThemes in ${ark_location}..." 10 50 >/dev/tty1
-    #Installing AnberThemes
+    dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\nInstalling ThemeMaster in ${ark_location}..." 10 50 >/dev/tty1
+    #Installing ThemeMaster
     cp -rf ${temp_ram_folder}app_update_temp/${package_folder}/* $ark_location
     chmod 777 ${ark_location}*.sh #make sure newly downloaded script have right permission
 
     dialog --clear
-    dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\ nInstalling AnberThemes in ${ark_location}...\nUninstalling ArkThemes..." 10 50 >/dev/tty1
+    dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\ nInstalling ThemeMaster in ${ark_location}...\nUninstalling ArkThemes..." 10 50 >/dev/tty1
     #Deleting temporary files...
     rm -rf ${temp_ram_folder}app_update_temp #remove the temp folder from RAM
     #Deleting ArkThemes...
     rm -f ${ark_location}ArkThemes.sh #remove ArkThemes launch script
     rm -rf ${ark_location}ArkThemes #remove ArkThemes folder
 
-    dialog --clear --backtitle "ArkThemes to AnberThemes" --msgbox "Migration successful.\nYou are now using AnberThemes!" 10 50 2>&1 >/dev/tty1
+    dialog --clear --backtitle "ArkThemes to ThemeMaster" --msgbox "Migration successful.\nYou are now using ThemeMaster!" 10 50 2>&1 >/dev/tty1
 
     ExitApp
   else
@@ -124,11 +124,11 @@ function Migrate2AnberThemes() {
     # sudo
     rm -rf ${temp_ram_folder}app_update_temp #remove the temp folder from RAM
 
-    cmd=$(dialog --yes-label "Try again" --no-label "Quit ArkThemes" --yesno "Migration to AnberThemes have failed because the archive did not download correctly. Check your connection and try again." 20 50 2>&1 >/dev/tty1)
+    cmd=$(dialog --yes-label "Try again" --no-label "Quit ArkThemes" --yesno "Migration to ThemeMaster have failed because the archive did not download correctly. Check your connection and try again." 20 50 2>&1 >/dev/tty1)
     retval=$?
     case $retval in
     0)
-      Migrate2AnberThemes
+      Migrate2ThemeMaster
       ;;
     1)
       ExitApp
@@ -468,12 +468,12 @@ function MigrationMenu() {
   local cmd
   local retval
 
-  cmd=$(dialog --backtitle "ArkThemes EOL" --yes-label "Yes, migrate now!" --no-label "No, later..." --yesno "ArkThemes has reach its end of life following the release of AnberThemes!\nDo you want to migrate to AnberThemes ?" 5 50 2>&1 >/dev/tty1)
+  cmd=$(dialog --backtitle "ArkThemes EOL" --yes-label "Yes, migrate now!" --no-label "No, later..." --yesno "ArkThemes has reach its end of life following the release of ThemeMaster!\nDo you want to migrate to ThemeMaster ?" 5 50 2>&1 >/dev/tty1)
 
   retval=$?
   case $retval in
   0)
-    Migrate2AnberThemes
+    Migrate2ThemeMaster
     ;;
   1)
     MainMenu
