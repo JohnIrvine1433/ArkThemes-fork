@@ -1,4 +1,5 @@
-**ArkThemes-fork has reached EOL following the release of [AnberThemes](https://github.com/JohnIrvine1433/AnberThemes)**
+# End-of-life
+**ArkThemes-fork has reached EOL following the release of [ThemeMaster](https://github.com/JohnIrvine1433/ThemeMaster)**
 
 # ArkThemes-fork
 Fork from ArkThemes by [TadMSTR](https://github.com/TadMSTR/ArkThemes)
