@@ -69,7 +69,7 @@ arkthemes_outdated=""
 #######################
 
 function Migrate2ThemeMaster() {
-  local UPDATE_URL="https://github.com/JohnIrvine1433/ThemeMaster/archive/refs/tags/2.1.0.zip"
+  local UPDATE_URL="https://github.com/JohnIrvine1433/ThemeMaster/archive/refs/tags/2.2.0.zip"
   local package_folder
 
   dialog --clear
@@ -83,15 +83,16 @@ function Migrate2ThemeMaster() {
 
     #Unzipping archive
     unzip -qo ${temp_ram_folder}app_update_temp/update.zip -d ${temp_ram_folder}app_update_temp/ #unzip directly in RAM
-    package_folder="ThemeMaster-2.1.0"
+    package_folder="ThemeMaster-2.2.0"
 
     dialog --clear
     dialog --infobox "Migration in progress...\nMigrating ArkThemes data..." 10 50 >/dev/tty1
+    sleep 1
     #Backing up and migrating ArkThemes data
     cp ${ark_location}ArkThemes/*.log ${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ 2>/dev/null
     cp -f ${ark_location}ArkThemes/*.dialogrc ${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ 2>/dev/null
     if [ -e "arkthemes.cfg" ]; then
-      echo "app_conf_version=\"2.1.0\"" >${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
+      echo "app_conf_version=\"2.2.0\"" >${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
       echo "themes_location=\"${themes_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
       echo "temp_ram_folder=\"${temp_ram_folder}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
       echo "app_location=\"${ark_location}\"" >>${temp_ram_folder}app_update_temp/${package_folder}/ThemeMaster/ThemeMaster.cfg
@@ -104,12 +105,14 @@ function Migrate2ThemeMaster() {
 
     dialog --clear
     dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\nInstalling ThemeMaster in ${ark_location}..." 10 50 >/dev/tty1
+    sleep 1
     #Installing ThemeMaster
     cp -rf ${temp_ram_folder}app_update_temp/${package_folder}/* $ark_location
     chmod 777 ${ark_location}*.sh #make sure newly downloaded script have right permission
 
     dialog --clear
     dialog --infobox "Migration in progress...\nMigrating ArkThemes data...\ nInstalling ThemeMaster in ${ark_location}...\nUninstalling ArkThemes..." 10 50 >/dev/tty1
+    sleep 1
     #Deleting temporary files...
     rm -rf ${temp_ram_folder}app_update_temp #remove the temp folder from RAM
     #Deleting ArkThemes...
@@ -468,7 +471,7 @@ function MigrationMenu() {
   local cmd
   local retval
 
-  cmd=$(dialog --backtitle "ArkThemes EOL" --yes-label "Yes, migrate now!" --no-label "No, later..." --yesno "ArkThemes has reach its end of life following the release of ThemeMaster!\nDo you want to migrate to ThemeMaster ?" 5 50 2>&1 >/dev/tty1)
+  cmd=$(dialog --backtitle "ArkThemes EOL" --yes-label "Yes, migrate now!" --no-label "No, later..." --yesno "ArkThemes has reach its end of life following the release of ThemeMaster!\nDo you want to migrate to ThemeMaster ?" 10 50 2>&1 >/dev/tty1)
 
   retval=$?
   case $retval in
